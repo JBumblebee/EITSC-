@@ -1,0 +1,16 @@
+<template>
+    <div>
+        <h1>设备控制</h1>
+    </div>
+</template>
+
+<script>
+export default {
+    name : 'equipControl'
+    
+}
+</script>
+
+<style scoped>
+
+</style>

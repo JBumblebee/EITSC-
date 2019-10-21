@@ -68,7 +68,7 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "用户名不能为空", trigger: "change" },
+          { required: true, message: "用户名不能为空", trigger: "blur" },
           { min: 2, max: 30, message: "长度在 2 到 30 个字符", trigger: "blur" }
         ],
         email: [

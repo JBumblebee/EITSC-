@@ -25,8 +25,15 @@
                 <span slot="title">{{citem.name}}</span>
               </el-menu-item>
             </router-link>
+            
           </el-submenu>
         </template>
+        <router-link to="/userList" v-if=" user.identity == 'manager'">
+          <el-menu-item index="1">
+            <i class="fa fa-margin fa-user-circle"></i>
+            <span slot="title">用户管理</span>
+          </el-menu-item>
+        </router-link>
       </el-menu>
     </el-col>
   </el-row>
@@ -43,7 +50,7 @@ export default {
           path: "equip",
           children: [
             { path: "equipList", name: "设备信息" },
-            { path: "epuipBind", name: "设备绑定" }
+            { path: "equipBind", name: "设备绑定" }
           ]
         },
         {
@@ -68,27 +75,35 @@ export default {
           path: "monitor",
           children: [
             { path: "electricMonitor", name: "用电监控" },
-            { path: "electricMonitor", name: "设备监控" },
-            { path: "electricMonitor", name: "环境监控" }
+            { path: "equipMonitor", name: "设备监控" },
+            { path: "environmentMonitor", name: "环境监控" }
           ]
         },
         {
           icon: "fa-bar-chart",
           name: "统计分析",
           path: "analysis",
-          children: [{ path: "electricanalysis", name: "用电量统计" }]
+          children: [
+            { path: "electricAnalysis", name: "用电量统计" },
+            { path: "equipAnalysis", name: "设备使用" },
+            { path: "environmentAnalysis", name: "环境状态" }
+          ]
         },
         {
           icon: "fa-cog",
           name: "信息管理",
           path: "info",
           children: [
-            { path: "infoshow", name: "个人信息" },
-            { path: "userList", name: "用户管理" }
+            { path: "infoShow", name: "个人信息" }
           ]
         }
       ]
     };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user
+    }
   }
 };
 </script>

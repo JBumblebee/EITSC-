@@ -7,13 +7,11 @@
             v-model="search_data.startTime"
             type="date"
             placeholder="选择开始时间"
-            :picker-options="pickerOptions"
           ></el-date-picker>--
           <el-date-picker
             v-model="search_data.endTime"
             type="date"
             placeholder="选择结束时间"
-            :picker-options="pickerOptions"
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -149,6 +147,7 @@ export default {
   methods: {
     getUserList() {
       this.$axios.get(`/api/users`).then(res => {
+        console.log(res.data)
         this.tableData = res.data;
         this.allTableData = res.data;
         this.filterTableData = res.data;

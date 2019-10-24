@@ -10,7 +10,7 @@ const types = {
 
 const state = { // 需要维护的状态
   isAutnenticated: false,  // 是否认证
-  user: {}   // 存储用户信息
+  user: {},   // 存储用户信息
 }
 
 const getters = {

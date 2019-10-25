@@ -18,6 +18,7 @@
           <el-form-item prop="name" label="用户名:">
             <el-input type="name" v-model="form.name"></el-input>
           </el-form-item>
+          
           <el-form-item label="角色" prop="identity">
             <el-select v-model="form.identity" placeholder="请选择用户角色" type="identity">
               <el-option label="老师" value="teacher"></el-option>

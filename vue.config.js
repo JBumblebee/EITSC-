@@ -19,7 +19,8 @@ module.exports = {
         //         alias: {
         //             '@': path.resolve(__dirname, './src'),
         //             '@c': path.resolve(__dirname, './src/components'),
-        //             'vue$': 'vue/dist/vue.esm.js'
+        //             'vue$': 'vue/dist/vue.esm.js',
+        //             'vendor': path.resolve(__dirname, './src/vendor'),//新增加一行
         //         }
         //     }
         // })
@@ -39,12 +40,12 @@ module.exports = {
     devServer: {
         open: true,
         host: 'localhost',
-        port: 8080,
+        port: 8081,
         https: false,
         hotOnly: false,
         proxy: { // 配置跨域
             '/api': {
-                target: 'http://localhost:5000/api/',
+                target: 'http://localhost:5001/api/',
                 ws: true,
                 changOrigin: true,
                 pathRewrite: {

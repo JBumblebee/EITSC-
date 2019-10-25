@@ -251,7 +251,7 @@ export default {
       }),
         (this.form = {
           name: "",
-          email: "test@qq.com",
+          email: "",
           secret_key: "",
           identity: "",
           password: "123456"

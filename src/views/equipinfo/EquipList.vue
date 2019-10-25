@@ -1,7 +1,7 @@
 <template>
   <div cla class="equipInfo">
     <div>
-      <SearchMenu :CmultipleSelection="multipleSelection" @Csearch="search"></SearchMenu>
+      <SearchMenu :CmultipleSelection="multipleSelection" @Csearch="search" @update="getEquips"></SearchMenu>
     </div>
     <el-button
       class="mybtn"
@@ -107,7 +107,7 @@
       </el-row>
     </div>
     <!-- 弹框页面---父向子传值 -->
-    <DialogEquip :dialog="dialog" :form="form" @update="getEquips"></DialogEquip>
+    <DialogEquip  :dialog="dialog" :form="form" @update="getEquips"></DialogEquip>
   </div>
 </template>
 
@@ -198,7 +198,7 @@ export default {
         option: "add"
       };
       this.form = {
-        secret_key: "",
+        secret_key: this.user.secret_key,
         schoolName: "",
         building: "",
         classroom: "",

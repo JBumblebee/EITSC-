@@ -15,14 +15,14 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" icon="search" @click="onScreeoutMoney()">筛选</el-button>
+          <el-button type="primary" size="small" icon="el-icon-search" @click="onScreeoutMoney()">筛选</el-button>
         </el-form-item>
         <el-form-item class="btnRight">
           <el-button
             v-if="user.identity == 'manager'"
             type="primary"
             size="small"
-            icon="view"
+            icon="el-icon-view"
             @click="onAddMoney()"
           >添加</el-button>
         </el-form-item>
@@ -65,11 +65,11 @@
           width="320"
         >
           <template slot-scope="scope">
-            <el-button type="warning" icon="edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
+            <el-button type="warning" icon="el-icon-edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
             <el-button
               :disabled="scope.row.identity == 'manager'"
               type="danger"
-              icon="delete"
+              icon="el-icon-delete"
               size="small"
               @click="onDeleteMoney(scope.row,scope.$index)"
             >删除</el-button>
@@ -147,7 +147,6 @@ export default {
   methods: {
     getUserList() {
       this.$axios.get(`/api/users`).then(res => {
-        console.log(res.data)
         this.tableData = res.data;
         this.allTableData = res.data;
         this.filterTableData = res.data;

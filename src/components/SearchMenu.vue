@@ -62,13 +62,25 @@
         :value="item.statusName"
       ></el-option>
     </el-select>
-    <el-button class="mybtn" type="primary" icon="edit" size="small" @click="find()">筛选</el-button>
+    <el-button class="mybtn" icon="el-icon-search" type="primary" size="small" @click="find()">筛选</el-button>
     <label class="ui-upload">
       导入
-      <input type="file" style="display: none;"  @change="importf(this)"  accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+      <input
+        type="file"
+        icon="el-icon-upload"
+        style="display: none;"
+        @change="importf(this)"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+      />
     </label>
-    <el-button class="mybtn" type="primary" icon="edit" size="small" @click="exportExcel()">下载模板</el-button>
-    <el-button style="margin-left:0px;" type="primary" icon="edit" size="small" @click="deleteMany()">批量删除</el-button>
+    <el-button class="mybtn" type="primary" icon="el-icon-download" size="small" @click="exportExcel()">下载模板</el-button>
+    <el-button
+      style="margin-left:0px;"
+      type="primary"
+      icon="el-icon-delete"
+      size="small"
+      @click="deleteMany()"
+    >批量删除</el-button>
     <table border="1" v-show="false" id="out-table">
       <tr>
         <th>通行证</th>
@@ -181,6 +193,7 @@ export default {
         });
     },
     importf(obj) {
+      //导入模板数据
       let _this = this;
       let inputDOM = this.$refs.inputer; // 通过DOM取文件数据
       this.file = event.currentTarget.files[0];
@@ -254,8 +267,9 @@ export default {
       }
     },
     exportExcel() {
-      var wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
-      var wbout = XLSX.write(wb, {
+      //导出模板
+      const wb = XLSX.utils.table_to_book(document.querySelector("#out-table"));
+      const wbout = XLSX.write(wb, {
         bookType: "xlsx",
         bookSST: true,
         type: "array"
@@ -287,7 +301,7 @@ export default {
 .ui-upload {
   height: 32px;
   width: 55px;
-  background-color: #409EFF;
+  background-color: #409eff;
   font-size: 12px;
   line-height: 32px;
   cursor: pointer;
@@ -296,6 +310,6 @@ export default {
   color: #fff;
   border-radius: 3px;
   margin-right: 15px;
-  border-color: #409EFF
+  border-color: #409eff;
 }
 </style>

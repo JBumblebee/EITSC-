@@ -87,7 +87,10 @@
             <el-input type="remark" v-model="form.remark"></el-input>
           </el-form-item>
           <el-form-item prop="bindType" label="绑定类型:">
-            <el-input type="bindType" v-model="form.bindType" placeholder="中控/网关"></el-input>
+            <el-select v-model="form.bindType" placeholder="请选择绑定类型" type="bindType">
+              <el-option label="中控" value="中控"></el-option>
+              <el-option label="网关" value="网关"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item prop="address" label="寻址:">
             <el-input type="address" v-model="form.address"></el-input>
@@ -124,15 +127,35 @@ export default {
   data() {
     return {
       form_rules: {
-        building: [{ required: true, message: "教学楼不能为空！", trigger: "blur" }],
-        classroom: [{ required: true, message: "课室不能为空！", trigger: "blur" }],
-        code: [{ required: true, message: "设备资产编号不能为空！", trigger: "blur" }],
-        name: [{ required: true, message: "设备名称不能为空！", trigger: "blur" }],
-        factory: [{ required: true, message: "厂商不能为空！", trigger: "blur" }],
+        building: [
+          { required: true, message: "教学楼不能为空！", trigger: "blur" }
+        ],
+        classroom: [
+          { required: true, message: "课室不能为空！", trigger: "blur" }
+        ],
+        code: [
+          { required: true, message: "设备资产编号不能为空！", trigger: "blur" }
+        ],
+        name: [
+          { required: true, message: "设备名称不能为空！", trigger: "blur" }
+        ],
+        factory: [
+          { required: true, message: "厂商不能为空！", trigger: "blur" }
+        ],
         sn: [{ required: true, message: "SN码不能为空！", trigger: "blur" }],
-        type: [{ required: true, message: "设备类型不能为空！", trigger: "blur" }],
-        status: [{ required: true, message: "设备状态不能为空！", trigger: "blur" }],
+        type: [
+          { required: true, message: "设备类型不能为空！", trigger: "blur" }
+        ],
+        status: [
+          { required: true, message: "设备状态不能为空！", trigger: "blur" }
+        ],
         brand: [{ required: true, message: "品牌不能为空！", trigger: "blur" }],
+        bindType: [
+          { required: true, message: "绑定类型不能为空", trigger: "blur" }
+        ],
+        address: [
+          { required: true, message: "寻址不能为空！", trigger: "blur" }
+        ]
       },
       buildings: [],
       factorys: [],

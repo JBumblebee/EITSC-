@@ -6,7 +6,7 @@
     <el-button
       class="mybtn"
       type="primary"
-      icon="edit"
+      icon="el-icon-view"
       size="small"
       @click="onAddMoney()"
       style="float:right;margin-top:-54px;"
@@ -56,6 +56,12 @@
               <el-form-item label="状态:">
                 <span>{{ scope.row.status }}</span>
               </el-form-item>
+              <el-form-item label="绑定类型:">
+                <span>{{ scope.row.bindType }}</span>
+              </el-form-item>
+              <el-form-item label="寻址:">
+                <span>{{ scope.row.address }}</span>
+              </el-form-item>
               <el-form-item label="备注:">
                 <span>{{ scope.row.remark }}</span>
               </el-form-item>
@@ -73,15 +79,16 @@
         </el-table-column>
         <el-table-column prop="name" label="设备名称" align="center"></el-table-column>
         <el-table-column prop="factory" label="厂商" align="center"></el-table-column>
+        <el-table-column prop="bindType"  align="center"></el-table-column>
         <el-table-column prop="status" label="状态" align="center"></el-table-column>
         <el-table-column type="selection"></el-table-column>
-        <el-table-column prop="operation" align="center" label="操作" fixed="right" width="160">
+        <el-table-column prop="operation" align="center" label="操作" fixed="right" width="180">
           <template slot-scope="scope">
-            <el-button type="warning" icon="edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
+            <el-button type="warning" icon="el-icon-edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
             <el-button
               :disabled="scope.row.identity == 'manager'"
               type="danger"
-              icon="delete"
+              icon="el-icon-delete"
               size="small"
               @click="onDeleteMoney(scope.row,scope.$index)"
             >删除</el-button>
@@ -107,7 +114,7 @@
       </el-row>
     </div>
     <!-- 弹框页面---父向子传值 -->
-    <DialogEquip  :dialog="dialog" :form="form" @update="getEquips"></DialogEquip>
+    <DialogEquip :dialog="dialog" :form="form" @update="getEquips"></DialogEquip>
   </div>
 </template>
 

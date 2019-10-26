@@ -9,7 +9,7 @@
                     <el-input v-model="loginUser.email" placeholder="请输入邮箱"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model="loginUser.password" placeholder="请输入密码" type="password"></el-input>
+                    <el-input v-model="loginUser.password" placeholder="请输入密码" type="password" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary"  @click="submitForm('loginForm')" class="submit_btn">登  录</el-button>

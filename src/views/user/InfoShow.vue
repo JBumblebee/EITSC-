@@ -34,7 +34,7 @@
                 <el-input type="password" v-model="userForm.password"></el-input>
               </el-form-item>
               <el-form-item label="确认密码:" prop="password2">
-                <el-input type="password" v-model="userForm.password2"></el-input>
+                <el-input type="password" v-model="userForm.password2" show-password></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('userForm')">提交</el-button>

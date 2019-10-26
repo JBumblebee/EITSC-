@@ -21,7 +21,7 @@
           <el-input v-model="registerUser.password" placeholder="请输入密码" type="password"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="password2">
-          <el-input v-model="registerUser.password2" placeholder="请确认密码" type="password"></el-input>
+          <el-input v-model="registerUser.password2" placeholder="请确认密码" type="password" show-password></el-input>
         </el-form-item>
         <el-form-item label="通行证" prop="secret_key">
           <el-input v-model="registerUser.secret_key" placeholder="请输入通行证"></el-input>

@@ -7,7 +7,7 @@ import Login from './views/Login'
 import Home from './views/Home'
 // import FoundList from './views/FoundList'
 import EquipList from './views/equipinfo/EquipList'
-import EquipBind from './views/equipinfo/EquipBind'
+// import EquipBind from './views/equipinfo/EquipBind'
 import SceneManage from './views/scene/SceneManage'
 import WarningManage from './views/scene/WarningManage'
 import SceneControl from './views/scene/SceneControl'
@@ -33,14 +33,13 @@ const router = new Router({
     { path: '/login', name: 'login', component: Login },
     {
       path: '/index',
-      name: 'index',
       component: Index,
       children: [
         { path: '', component: Home },
         { path: '/home', name: 'home', component: Home },
         // { path: '/foundlist', name: 'foundlist', component: FoundList }
         { path: '/equipList', name: 'equipList', component: EquipList },
-        { path: '/equipBind', name: 'equipBind', component: EquipBind },
+        // { path: '/equipBind', name: 'equipBind', component: EquipBind },
         { path: '/scenemManage', name: 'scenemManage', component: SceneManage },
         { path: '/warningManage', name: 'warningManage', component: WarningManage },
         { path: '/sceneControl', name: 'sceneControl', component: SceneControl },

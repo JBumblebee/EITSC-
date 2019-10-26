@@ -50,7 +50,7 @@ export default {
           path: "equip",
           children: [
             { path: "equipList", name: "设备信息" },
-            { path: "equipBind", name: "设备绑定" }
+            // { path: "equipBind", name: "设备绑定" }
           ]
         },
         {

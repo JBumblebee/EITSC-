@@ -40,7 +40,7 @@ module.exports = {
     devServer: {
         open: true,
         host: 'localhost',
-        port: 3000,
+        port: 8888,
         https: false,
         hotOnly: false,
         proxy: { // 配置跨域

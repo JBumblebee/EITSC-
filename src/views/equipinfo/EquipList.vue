@@ -32,7 +32,7 @@
               <el-form-item label="课室:">
                 <span>{{ scope.row.classroom }}</span>
               </el-form-item>
-              <el-form-item label="设备资产编号:">
+              <el-form-item label="资产编号:">
                 <span>{{ scope.row.code }}</span>
               </el-form-item>
               <el-form-item label="设备名称:">
@@ -72,14 +72,14 @@
         <el-table-column label="创建时间" align="center" width="160">
           <template slot-scope="scope">{{ scope.row.date |dateFormat }}</template>
         </el-table-column>
-        <el-table-column label="设备资产编号" align="center">
+        <el-table-column label="资产编号" align="center">
           <template slot-scope="scope">
             <span style="color:#f56767">{{ scope.row.code }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="name" label="设备名称" align="center"></el-table-column>
         <el-table-column prop="factory" label="厂商" align="center"></el-table-column>
-        <el-table-column prop="bindType"  align="center"></el-table-column>
+        <el-table-column prop="bindType" label="绑定类型"  align="center"></el-table-column>
         <el-table-column prop="status" label="状态" align="center"></el-table-column>
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="operation" align="center" label="操作" fixed="right" width="180">

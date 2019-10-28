@@ -91,7 +91,6 @@ export default {
         .get("/api/scenes/getSceneStatus/" + this.user.secret_key)
         .then(res => {
           return (this.tableData = res.data);
-          // console.log(res.data);
         });
     },
     find() {
@@ -125,7 +124,7 @@ export default {
         this.$axios.post("/api/scenes/send/" + row._id, newChoice).then(() => {
           this.$message({
             message: "已关闭",
-            type: "info"
+            type: "warning"
           });
         });
       }

@@ -62,7 +62,7 @@
               type="primary"
               icon="el-icon-edit"
               @click="handleEdit(props.row)"
-            >提交</el-button>
+            >保存</el-button>
           </template>
         </el-table-column>
       </el-table>

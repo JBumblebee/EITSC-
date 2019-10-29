@@ -1,22 +1,20 @@
 <template>
-    <div>
-        <h1>设备监控</h1>
-        
-    </div>
+  <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
+    <li v-for="i in count" class="infinite-list-item" :key="i">{{ i }}</li>
+  </ul>
 </template>
 
 <script>
-export default {
-    name : 'equipMonitor',
-    data() {
-        return {
-            
-        }
+  export default {
+    data () {
+      return {
+        count: 0
+      }
     },
-    
-}
+    methods: {
+      load () {
+        this.count += 2
+      }
+    }
+  }
 </script>
-
-<style scoped>
-
-</style>

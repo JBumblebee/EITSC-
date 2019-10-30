@@ -74,9 +74,9 @@ export default {
           name: "监控管理",
           path: "monitor",
           children: [
-            { path: "electricMonitor", name: "用电监控" },
-            { path: "equipMonitor", name: "设备监控" },
-            { path: "environmentMonitor", name: "环境监控" }
+            // { path: "electricMonitor", name: "用电监控" },
+            // { path: "equipMonitor", name: "设备监控" },
+            { path: "environmentMonitor", name: "校园监控" }
           ]
         },
         {

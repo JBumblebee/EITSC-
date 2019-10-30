@@ -70,40 +70,88 @@
           <div id="myChart2" style="height:243px;top:30px;left:-30px"></div>
         </el-col>
       </el-row>
-
       <!-- 下面 -->
       <el-row :gutter="20">
         <el-col :span="12">
-          <div class="grid-content bg-purple">
-      <el-progress type="dashboard" :percentage="25" color="#f56c6c" status="success"></el-progress>
-
-          </div>
+          <el-row :gutter="20">
+            <el-col :span="4">
+              <div
+                style="width:126px; line-height: 20px;height:30px;text-align: center;color:#fff; "
+              >
+                <p>空气质量</p>
+              </div>
+              <el-progress type="dashboard" :percentage="30" :format="format"></el-progress>
+            </el-col>
+            <el-col :span="10">
+              <table class="tabel2">
+                <tbody>
+                  <tr>
+                    <td>PM10</td>
+                    <td>62</td>
+                  </tr>
+                  <tr>
+                    <td>PM2.5</td>
+                    <td>26</td>
+                  </tr>
+                  <tr>
+                    <td>CO<sub>2</sub></td>
+                    <td>15</td>
+                  </tr>
+                  <tr>
+                    <td>甲醛</td>
+                    <td>15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="4">
+              <div
+                style="width:126px; line-height: 20px;height:30px;text-align: center;color:#fff; "
+              >
+                <p>湿度</p>
+              </div>
+              <el-progress type="dashboard" percentage="59" color="#5cb87a"></el-progress>
+            </el-col>
+            <el-col :span="10">
+              <table class="tabel2">
+                <tbody>
+                  <tr>
+                    <td>体感温度</td>
+                    <td>24</td>
+                  </tr>
+                </tbody>
+              </table>
+            </el-col>
+          </el-row>
         </el-col>
         <el-col :span="10">
           <p class="title">警报信息</p>
-          <table width="100%" class="table">
+          <table width="100%" class="t_table">
             <thead>
               <tr>
                 <th>日期</th>
                 <th>警报信息</th>
               </tr>
             </thead>
-            <tr>
-              <td>2019-10-28</td>
-              <td>用电量警报</td>
-            </tr>
-            <tr>
-              <td>2019-10-28</td>
-              <td>用电量警报</td>
-            </tr>
-            <tr>
-              <td>2019-10-28</td>
-              <td>用电量警报</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>2019-10-28</td>
+                <td>用电量警报用电量警报用电量警报</td>
+              </tr>
+              <tr>
+                <td>2019-10-28</td>
+                <td>用电量警报用电量警报用电量警报</td>
+              </tr>
+              <tr>
+                <td>2019-10-28</td>
+                <td>用电量警报用电量警报用电量警报</td>
+              </tr>
+            </tbody>
           </table>
         </el-col>
       </el-row>
-
     </el-main>
   </div>
 </template>
@@ -134,6 +182,9 @@ export default {
     };
   },
   methods: {
+    format(percentage) {
+      return percentage === 30 ? "良" : `${percentage}%`;
+    },
     init1() {
       this.myChart1 = this.$echarts.init(document.getElementById("myChart1"));
       this.myChart1.setOption({
@@ -433,13 +484,14 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 .t_container {
   width: 100%;
   height: 100%;
   background: url(../../assets/img/true.png) no-repeat;
   background-size: 100% 100%;
   position: relative;
+  overflow: hidden;
 }
 .t_header {
   width: 100%;
@@ -470,27 +522,48 @@ export default {
 .el-col {
   border-radius: 4px;
 }
-/* .warning_msg {
-  background-color: rgb(0, 0, 0, 0);
-} */
 
-table {
-  border-collapse: collapse;
-  margin: 0 auto;
-  text-align: center;
-}
-
-table th {
+.t_table {
+  font-size: 16px;
   color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  border-spacing: 0;
+  text-align: center;
+  box-sizing: border-box;
+}
+.t_table tr {
+  margin: 0;
+  padding: 0;
   height: 30px;
   line-height: 30px;
 }
-table td {
-  color: rgb(231, 94, 94);
+.t_table thead tr {
+  background: #053a98;
+}
+.t_table tbody tr td:first-child {
+  border-left: 1px solid #053a98;
+}
+.t_table td {
+  border-bottom: 1px solid #053a98;
+  border-right: 1px solid #053a98;
+  color: #df3d3d;
+}
+
+.tabel2 {
+  font-size: 16px;
+  color: #fff;
+  width: 70%;
+  margin: 0 auto;
+  border-spacing: 0;
+  text-align: center;
+  box-sizing: border-box;
+  margin-top:35px;
+}
+.tabel2 tr {
+  margin: 0;
+  padding: 0;
   height: 30px;
   line-height: 30px;
-}
-table thead th {
-  width: 100px;
 }
 </style>

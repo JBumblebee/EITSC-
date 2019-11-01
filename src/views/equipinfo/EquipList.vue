@@ -171,6 +171,13 @@ export default {
   },
   components: { SearchMenu, DialogEquip },
   methods: {
+    onDeleteMoney(row, index) {
+      // 删除api/equips/delete/:id
+      this.$axios.post(`/api/equips/delete/${row._id}`).then(res => {
+        this.$message("删除成功");
+        this.getEquips();
+      });
+    },
     onEditMoney(row) {
       // 编辑
       this.dialog = {

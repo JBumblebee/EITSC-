@@ -112,7 +112,7 @@
               >
                 <p>湿度</p>
               </div>
-              <el-progress type="dashboard" percentage="59" color="#5cb87a"></el-progress>
+              <el-progress type="dashboard" :percentage="59" color="#5cb87a"></el-progress>
             </el-col>
             <el-col :span="10">
               <table class="tabel2">

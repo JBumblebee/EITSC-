@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/Index.vue'
-import Register from './views/Register'
+// import Register from './views/Register'
 import Nofind from './views/404'
 import Login from './views/Login'
 import Home from './views/Home'
@@ -29,7 +29,7 @@ const router = new Router({
   routes: [
     { path: '*', name: '/404', component: Nofind },
     { path: '/', redirect: '/index' },
-    { path: '/register', name: 'register', component: Register },
+    // { path: '/register', name: 'register', component: Register },
     { path: '/login', name: 'login', component: Login },
     {
       path: '/index',
@@ -60,7 +60,7 @@ const router = new Router({
 // 添加路由守卫
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.eleToken ? true : false;
-  if (to.path == "/login" || to.path == "/register") {
+  if (to.path == "/login") {
     next();
   } else {
     isLogin ? next() : next("/login");

@@ -96,8 +96,8 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <el-row>
-        <el-col :span="24">
+      <el-row type="flex" justify="center">
+        <el-col :span="12">
           <div class="pagination">
             <el-pagination
               v-if="paginations.total > 0"
@@ -171,6 +171,13 @@ export default {
   },
   components: { SearchMenu, DialogEquip },
   methods: {
+    onDeleteMoney(row, index) {
+      // 删除api/equips/delete/:id
+      this.$axios.post(`/api/equips/delete/${row._id}`).then(res => {
+        this.$message("删除成功");
+        this.getEquips();
+      });
+    },
     onEditMoney(row) {
       // 编辑
       this.dialog = {
@@ -301,7 +308,6 @@ export default {
   width: 50%;
 }
 .pagination {
-  text-align: right;
   margin-top: 10px;
 }
 </style>

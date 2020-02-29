@@ -50,6 +50,7 @@
 
 <script>
 export default {
+  // 场景控制
   name: "scenemControl",
   data() {
     return {

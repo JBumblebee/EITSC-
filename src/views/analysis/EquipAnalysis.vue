@@ -1,237 +1,258 @@
 <template>
-  <div class="electric_container">
-    <el-row :gutter="20">
-      <el-col :span="1">
-        <div class="grid-content bg-purple"></div>
+  <div class="equipAnalysis_container">
+    <div class="block">
+      <el-date-picker
+        v-model="value2"
+        align="right"
+        type="date"
+        placeholder="选择日期"
+        size="medium"
+        style="width:160px;margin-right:20px;"
+        :picker-options="pickerOptions"
+      ></el-date-picker>
+      <el-button icon="el-icon-search" type="primary" size="small" @click="find()">筛选</el-button>
+    </div>
+    <el-row type="flex" justify="space-between">
+      <el-col :span="11">
+        <p class="title">设备使用频率</p>
+        <el-row>
+          <el-col :span="6">
+            <el-tag size="small" effect="dark" type="warning" style="font-size:14px">空调</el-tag>
+          </el-col>
+          <el-col :span="18">
+            <el-progress
+              :text-inside="true"
+              status="warning"
+              :stroke-width="24"
+              :percentage="useage[0].air"
+            ></el-progress>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-tag size="small" effect="dark" type="danger" style="font-size:14px">电脑</el-tag>
+          </el-col>
+          <el-col :span="18">
+            <el-progress
+              :text-inside="true"
+              status="exception"
+              :stroke-width="24"
+              :percentage="useage[1].computer"
+            ></el-progress>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-tag size="small" effect="dark" type="info" style="font-size:14px">窗帘</el-tag>
+          </el-col>
+          <el-col :span="18">
+            <el-progress
+              :text-inside="true"
+              color="#909399"
+              :stroke-width="24"
+              :percentage="useage[3].curtain"
+            ></el-progress>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-tag size="small" effect="dark" type="success" style="font-size:14px">投影仪</el-tag>
+          </el-col>
+          <el-col :span="18">
+            <el-progress
+              :text-inside="true"
+              status="success"
+              :stroke-width="24"
+              :percentage="useage[2].projector"
+            ></el-progress>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-tag size="small" effect="dark" style="font-size:14px">智能灯</el-tag>
+          </el-col>
+          <el-col :span="18">
+            <el-progress
+              :text-inside="true"
+              color="bluesky"
+              :stroke-width="24"
+              :percentage="useage[4].lamp"
+            ></el-progress>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :span="7">
-        <div id="myChart"></div>
-      </el-col>
-      <el-col :span="7">
-        <div id="myChart2"></div>
-      </el-col>
-      <el-col :span="7">
-        <div id="myChart3"></div>
+      <el-col :span="11">
+        <p class="title">设备状态监控</p>
+        <div id="myChart2" style="height:230px;"></div>
       </el-col>
     </el-row>
-    <el-row :gutter="20">
-      <el-col :span="1">
-        <div class="grid-content bg-purple"></div>
-      </el-col>
-      <el-col :span="7">
-        <div id="myChart4"></div>
-      </el-col>
-      <el-col :span="1">
-        <div class="grid-content bg-purple"></div>
-      </el-col>
+    <el-row>
       <el-col :span="15">
-        <el-table :data="tableData" border  style="height:350px">
-          <el-table-column prop="date" label="日期" width="180" align="center"></el-table-column>
-          <el-table-column prop="type" label="类型" width="180" align="center"></el-table-column>
-          <el-table-column prop="userate" label="使用率" width="180" align="center"></el-table-column>
+        <el-table
+          :data="tableData"
+          style="width: 100%"
+          max-height="300"
+        >
+          <el-table-column prop="date" label="日期" width="180"></el-table-column>
+          <el-table-column prop="name" label="设备种类" width="180"></el-table-column>
+          <el-table-column prop="total" label="总数量" width="180"></el-table-column>
+          <el-table-column prop="useage" label="使用率"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
   </div>
 </template>
-
 <script>
 export default {
-  name: "equipAnalysis",
   data() {
     return {
-      myChart: "",
+      useage: [
+        { air: 30 },
+        { computer: 45 },
+        { projector: 65 },
+        { curtain: 75 },
+        { lamp: 85 }
+      ],
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now();
+        },
+        shortcuts: [
+          {
+            text: "今天",
+            onClick(picker) {
+              picker.$emit("pick", new Date());
+            }
+          },
+          {
+            text: "昨天",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit("pick", date);
+            }
+          },
+          {
+            text: "一周前",
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit("pick", date);
+            }
+          }
+        ]
+      },
+      value2: "",
       myChart2: "",
-      myChart3: "",
-      myChart4: "",
+      equip_state: { good: 100, bad: 10 },
       tableData: [
         {
-          date: "2019-10-28",
-          type: "空调",
-          userate: "46.5%"
+          date: "2016-05-02",
+          name: "王小虎",
+          total:100,
+          useage: "上海市普陀区金沙江路 1518 弄"
         },
         {
-          date: "2019-10-28",
-          type: "电脑",
-          userate: "55.5%"
+          date: "2016-05-04",
+          name: "王小虎",
+          total:100,
+          useage: "上海市普陀区金沙江路 1518 弄"
         },
         {
-          date: "2019-10-28",
-          type: "投影仪",
-          userate: "50.3%"
+          date: "2016-05-01",
+          name: "王小虎",
+          total:100,
+          useage: "上海市普陀区金沙江路 1518 弄"
         },
         {
-          date: "2019-10-28",
-          type: "窗帘",
-          userate: "85.5%"
+          date: "2016-05-03",
+          name: "王小虎",
+          total:100,
+          useage: "上海市普陀区金沙江路 1518 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          total:100,
+          useage: "上海市普陀区金沙江路 1518 弄"
         }
       ]
     };
   },
   mounted() {
-    this.init();
     this.init2();
-    this.init3();
-    this.init4();
+    window.onresize = () => {
+      this.myChart2.resize();
+    };
   },
-
   methods: {
-    init() {
-      var dom = document.getElementById("myChart");
-      var myChart = this.$echarts.init(dom);
-      var option = null;
-      option = {
-        tooltip: {
-          formatter: "{a} <br/>{b} : {c}%"
-        },
-        toolbox: {
-          feature: {
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        series: [
-          {
-            name: "业务指标",
-            type: "gauge",
-            detail: { formatter: "{value}%" },
-            data: [{ value: 46.5, name: "空调" }]
-          }
-        ]
-      };
-      // setTimeout(() => {
-      //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      //   myChart.setOption(option, true);
-      // }, 1000*60);
-      if (option && typeof option === "object") {
-        myChart.setOption(option, true);
-      }
-      window.onresize = () => {
-        myChart.resize();
-      };
+    find() {
+      alert(this.value2);
     },
     init2() {
-      var dom = document.getElementById("myChart2");
-      var myChart2 = this.$echarts.init(dom);
-      var option = null;
-      option = {
+      this.myChart2 = this.$echarts.init(document.getElementById("myChart2"));
+      this.myChart2.setOption({
         tooltip: {
-          formatter: "{a} <br/>{b} : {c}%"
+          trigger: "item",
+          formatter: "{a} <br/>{b}: {c} ({d}%)"
         },
-        toolbox: {
-          feature: {
-            restore: {},
-            saveAsImage: {}
+        legend: {
+          left: -5,
+          top: 0,
+          data: ["故障", "正常"],
+          textStyle: {
+            color: "#000"
           }
         },
         series: [
           {
-            name: "业务指标",
-            type: "gauge",
-            detail: { formatter: "{value}%" },
-            data: [{ value: 55.5, name: "电脑" }]
+            name: "设备状态",
+            type: "pie",
+            radius: ["20%", "70%"],
+            center: ["50%", "50%"],
+            color: ["#e72325", "#98e002", "#2ca3fd"],
+            label: {
+              normal: {
+                formatter: "{b}\n{d}%"
+              }
+            },
+            data: [
+              {
+                value: this.equip_state.bad,
+                name: "故障"
+              },
+              {
+                value: this.equip_state.good,
+                name: "正常",
+                selected: true
+              }
+            ]
           }
         ]
-      };
-      // setTimeout(() => {
-      //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      //   myChart2.setOption(option, true);
-      // }, 1000*60);
-      if (option && typeof option === "object") {
-        myChart2.setOption(option, true);
-      }
-      window.onresize = () => {
-        myChart2.resize();
-      };
-    },
-    init3() {
-      var dom = document.getElementById("myChart3");
-      var myChart3 = this.$echarts.init(dom);
-      var option = null;
-      option = {
-        tooltip: {
-          formatter: "{a} <br/>{b} : {c}%"
-        },
-        toolbox: {
-          feature: {
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        series: [
-          {
-            name: "业务指标",
-            type: "gauge",
-            detail: { formatter: "{value}%" },
-            data: [{ value: 50.3, name: "投影仪" }]
-          }
-        ]
-      };
-      // setTimeout(() => {
-      //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      //   myChart3.setOption(option, true);
-      // }, 1000*60);
-      if (option && typeof option === "object") {
-        myChart3.setOption(option, true);
-      }
-      window.onresize = () => {
-        myChart3.resize();
-      };
-    },
-    init4() {
-      var dom = document.getElementById("myChart4");
-      var myChart4 = this.$echarts.init(dom);
-      var option = null;
-      option = {
-        tooltip: {
-          formatter: "{a} <br/>{b} : {c}%"
-        },
-        toolbox: {
-          feature: {
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        series: [
-          {
-            name: "业务指标",
-            type: "gauge",
-            detail: { formatter: "{value}%" },
-            data: [{ value: 85.5, name: "窗帘" }]
-          }
-        ]
-      };
-      // setTimeout(() => {
-      //   option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-      //   myChart4.setOption(option, true);
-      // }, 1000*60);
-      if (option && typeof option === "object") {
-        myChart4.setOption(option, true);
-      }
-      window.onresize = () => {
-        myChart4.resize();
-      };
+      });
     }
   }
 };
 </script>
 
 <style scoped>
-.electric_container {
+.equipAnalysis_container {
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
   padding: 16px;
-  overflow: hidden;
+  box-sizing: border-box;
 }
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+.block {
+  margin:20px 0;
 }
-#myChart,
-#myChart2,
-#myChart3,
-#myChart4 {
-  height: 350px;
+.title {
+  font-size: 18px;
+  position: relative;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.el-row {
+  margin-bottom: 20px;
 }
 </style>

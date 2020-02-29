@@ -2,7 +2,7 @@
   <header class="head-nav">
     <el-row>
       <el-col :span="6" class="logo-container">
-        <img src="../assets/logo.png" class="logo" alt />
+        <img src="../assets/img/logo/2.png" class="logo" alt />
         <span class="title">集控运维服务系统</span>
       </el-col>
       <el-col :span="6" class="user">

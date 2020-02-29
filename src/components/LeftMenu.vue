@@ -50,7 +50,6 @@ export default {
           path: "equip",
           children: [
             { path: "equipList", name: "设备信息" },
-            // { path: "equipBind", name: "设备绑定" }
           ]
         },
         {
@@ -58,7 +57,7 @@ export default {
           name: "场景管理",
           path: "scene",
           children: [
-            { path: "scenemManage", name: "场景设置" },
+            { path: "sceneManage", name: "场景设置" },
             { path: "warningManage", name: "预警设置" },
             { path: "sceneControl", name: "场景控制" }
           ]
@@ -74,9 +73,7 @@ export default {
           name: "监控管理",
           path: "monitor",
           children: [
-            { path: "electricMonitor", name: "用电监控" },
-            { path: "equipMonitor", name: "设备监控" },
-            { path: "environmentMonitor", name: "环境监控" }
+            { path: "environmentMonitor", name: "数据监控" }
           ]
         },
         {

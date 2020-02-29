@@ -211,7 +211,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background: url(../../assets/warning.jpg) no-repeat;
+  background: url(../../assets/img/bg/9.jpg) no-repeat;
   background-size: 100% 100%;
   overflow: hidden;
 }

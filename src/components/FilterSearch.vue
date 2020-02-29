@@ -100,10 +100,6 @@ export default {
 
 <style scoped>
 .search_contain {
-  margin: 20px 0 50px;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+  margin: 20px 0;
 }
 </style>

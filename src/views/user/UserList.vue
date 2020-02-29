@@ -1,21 +1,14 @@
 <template>
-  <div class="fillcontain">
-    <div>
+  <div class="useList_container">
+    <!-- 筛选菜单 -->
+    <div class="search_menu">
       <el-form :inline="true" ref="search_data" :model="search_data">
         <el-form-item label="时间筛选:">
-          <el-date-picker
-            v-model="search_data.startTime"
-            type="date"
-            placeholder="选择开始时间"
-          ></el-date-picker>--
-          <el-date-picker
-            v-model="search_data.endTime"
-            type="date"
-            placeholder="选择结束时间"
-          ></el-date-picker>
+          <el-date-picker v-model="search_data.startTime" type="date" placeholder="选择开始时间"></el-date-picker>--
+          <el-date-picker v-model="search_data.endTime" type="date" placeholder="选择结束时间"></el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="small" icon="el-icon-search" @click="onScreeoutMoney()">筛选</el-button>
+          <el-button type="primary" size="small" icon="el-icon-search" @click="onSearch()">筛选</el-button>
         </el-form-item>
         <el-form-item class="btnRight">
           <el-button
@@ -23,11 +16,12 @@
             type="primary"
             size="small"
             icon="el-icon-view"
-            @click="onAddMoney()"
+            @click="onAdd()"
           >添加</el-button>
         </el-form-item>
       </el-form>
     </div>
+
     <div class="table_container">
       <el-table
         v-if="tableData.length > 0"
@@ -65,20 +59,25 @@
           width="320"
         >
           <template slot-scope="scope">
-            <el-button type="warning" icon="el-icon-edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
             <el-button
-              :disabled="scope.row.identity == 'manager'"
+              type="warning"
+              icon="el-icon-edit"
+              size="small"
+              @click="onEditMoney(scope.row)"
+            >编辑</el-button>
+            <el-button
+              :disabled="scope.row.identity === 'manager'"
               type="danger"
               icon="el-icon-delete"
               size="small"
-              @click="onDeleteMoney(scope.row,scope.$index)"
+              @click="onDelete(scope.row,scope.$index)"
             >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <el-row>
-        <el-col :span="24">
+      <el-row type="flex" justify="center">
+        <el-col :span="12">
           <div class="pagination">
             <el-pagination
               v-if="paginations.total > 0"
@@ -103,6 +102,7 @@
 import DialogFound from "../../components/DialogFound";
 export default {
   name: "userList",
+  // 用户列表
   data() {
     return {
       tableData: [],
@@ -169,7 +169,7 @@ export default {
           id: row._id
         });
     },
-    onDeleteMoney(row, index) {
+    onDelete(row, index) {
       // 删除
       this.$axios.post(`/api/users/delete/${row._id}`).then(res => {
         this.$confirm("是否永久删除该用户信息?", "提示", {
@@ -221,7 +221,7 @@ export default {
         return index < this.paginations.page_size;
       });
     },
-    onScreeoutMoney() {
+    onSearch() {
       // 筛选
       if (!this.search_data.startTime || !this.search_data.endTime) {
         this.$message({
@@ -241,7 +241,7 @@ export default {
       // 分页数据
       this.setPaginations();
     },
-    onAddMoney() {
+    onAdd() {
       //添加
       (this.dialog = {
         show: true,
@@ -261,7 +261,7 @@ export default {
 </script>
 
 <style scoped>
-.fillcontain {
+.useList_container {
   width: 100%;
   height: 100%;
   padding: 16px;
@@ -271,7 +271,6 @@ export default {
   float: right;
 }
 .pagination {
-  text-align: right;
   margin-top: 10px;
 }
 </style>

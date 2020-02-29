@@ -5,17 +5,6 @@
         <el-table-column type="expand" label="查看详情" width="160">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="空调">
-                <el-switch v-model="props.row.air" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
-                <label class="el-form-item__label" style="padding-left:50px;">温度</label>
-                <el-input-number
-                  v-model="props.row.num"
-                  controls-position="right"
-                  :min="16"
-                  :max="30"
-                  :disabled="!props.row.air"
-                ></el-input-number>
-              </el-form-item>
               <el-form-item label="智能灯">
                 <el-switch v-model="props.row.lamp" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
               </el-form-item>
@@ -36,7 +25,26 @@
               <el-form-item label="抽风机">
                 <el-switch v-model="props.row.fan" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
               </el-form-item>
-
+              <el-form-item label="空调">
+                <el-switch v-model="props.row.air" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+              </el-form-item>
+              <el-form-item label="投影仪">
+                <el-switch
+                  v-model="props.row.projector"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                ></el-switch>
+              </el-form-item>
+              <el-form-item label="温度">
+                <el-input-number
+                  v-model="props.row.temperature"
+                  size="small"
+                  controls-position="right"
+                  :min="16"
+                  :max="30"
+                  :disabled="!props.row.air"
+                ></el-input-number>
+              </el-form-item>
               <el-form-item label="场景名称">
                 <el-input
                   type="textarea"
@@ -45,14 +53,13 @@
                   v-model="props.row.sceneName"
                 ></el-input>
               </el-form-item>
-              <el-form-item label="描述" style="padding-top:15px;">
+              <el-form-item label="描述">
                 <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="props.row.desc"></el-input>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column type="index" label="序号" align="center" width="70px"></el-table-column>
-        <el-table-column prop="_id" v-if="false"></el-table-column>
         <el-table-column label="场景名称" prop="sceneName" align="center"></el-table-column>
         <el-table-column label="描述" prop="desc" align="center"></el-table-column>
         <el-table-column label="操作" align="center" fixed="right">
@@ -72,6 +79,7 @@
 
 <script>
 export default {
+  // 场景设置
   name: "sceneManage",
   data() {
     return {
@@ -117,8 +125,8 @@ export default {
   font-size: 0;
 }
 .demo-table-expand label {
-  width: 90px;
-  color: #99a9bf;
+  width: 80px;
+  color: #4984d8;
 }
 .demo-table-expand .el-form-item {
   margin-right: 0;

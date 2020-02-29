@@ -1,14 +1,11 @@
 <template>
   <div class="electric_container">
     <FilterSearch @Csearch="Csearch"></FilterSearch>
-    <el-row :gutter="20">
-      <el-col :span="1">
-        <div class="grid-content bg-purple"></div>
-      </el-col>
-      <el-col :span="14">
+    <el-row type="flex" justify="space-between">
+      <el-col :span="11">
         <div id="myChart"></div>
       </el-col>
-      <el-col :span="9">
+      <el-col :span="11">
         <div id="myChart2"></div>
       </el-col>
     </el-row>

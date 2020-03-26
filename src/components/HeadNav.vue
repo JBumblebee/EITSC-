@@ -82,9 +82,9 @@ export default {
   min-width: 400px;
 }
 .logo {
-  height: 50px;
-  width: 50px;
-  margin-right: 5px;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
   vertical-align: middle;
   display: inline-block;
 }

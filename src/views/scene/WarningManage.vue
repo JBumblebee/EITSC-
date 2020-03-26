@@ -1,10 +1,5 @@
 <template>
   <div class="block">
-    <!-- <el-row :gutter="24">
-      <el-col :span="6">
-        <div class="grid-content"></div>
-      </el-col>
-    </el-row>-->
     <el-row :gutter="24" style="padding-top:50px;">
       <el-col :span="6">
         <div class="grid-content"></div>
@@ -175,6 +170,12 @@ export default {
           // "[10,20]" json 传过来的带有双引号 使用eval转变成arry
           this.warning = res.data[0];
           this.warning.temperature = eval(res.data[0].temperature);
+        })
+        .catch(() => {
+          this.$message({
+            message: "未进行初始化设置，请联系管理员",
+            type: "warning"
+          });
         });
     },
     submit() {

@@ -32,7 +32,7 @@
 export default {
   data() {
     return {
-       value2: "",
+      value2: "",
       buildings: [],
       place: [],
       pickerOptions: {
@@ -81,6 +81,9 @@ export default {
         .post("/api/place/getBySchool/" + this.user.secret_key)
         .then(res => {
           this.buildings = res.data[0].buildings;
+        })
+        .catch(() => {
+          this.buildings = [];
         });
     },
     find() {
@@ -93,7 +96,7 @@ export default {
         query.classroom = this.place[1];
       }
       this.$emit("Csearch", query);
-    },
+    }
   }
 };
 </script>

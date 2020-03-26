@@ -156,6 +156,9 @@ export default {
         .post("/api/place/getBySchool/" + this.user.secret_key)
         .then(res => {
           this.buildings = res.data[0].buildings;
+        })
+        .catch(() => {
+          this.buildings = [];
         });
     },
     search() {

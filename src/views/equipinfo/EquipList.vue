@@ -79,12 +79,17 @@
         </el-table-column>
         <el-table-column prop="name" label="设备名称" align="center"></el-table-column>
         <el-table-column prop="factory" label="厂商" align="center"></el-table-column>
-        <el-table-column prop="bindType" label="绑定类型"  align="center"></el-table-column>
+        <el-table-column prop="bindType" label="绑定类型" align="center"></el-table-column>
         <el-table-column prop="status" label="状态" align="center"></el-table-column>
         <el-table-column type="selection"></el-table-column>
         <el-table-column prop="operation" align="center" label="操作" fixed="right" width="180">
           <template slot-scope="scope">
-            <el-button type="warning" icon="el-icon-edit" size="small" @click="onEditMoney(scope.row)">编辑</el-button>
+            <el-button
+              type="warning"
+              icon="el-icon-edit"
+              size="small"
+              @click="onEditMoney(scope.row)"
+            >编辑</el-button>
             <el-button
               :disabled="scope.row.identity == 'manager'"
               type="danger"
@@ -249,6 +254,7 @@ export default {
         this.allTableData = res.data;
         //分页数据
         this.setPaginations();
+        
       });
     },
     handleCurrentChange(page) {

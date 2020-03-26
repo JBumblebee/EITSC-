@@ -73,7 +73,13 @@
         accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
       />
     </label>
-    <el-button class="mybtn" type="primary" icon="el-icon-download" size="small" @click="exportExcel()">下载模板</el-button>
+    <el-button
+      class="mybtn"
+      type="primary"
+      icon="el-icon-download"
+      size="small"
+      @click="exportExcel()"
+    >下载模板</el-button>
     <el-button
       style="margin-left:0px;"
       type="primary"
@@ -150,6 +156,9 @@ export default {
         .post("/api/place/getBySchool/" + this.user.secret_key)
         .then(res => {
           this.buildings = res.data[0].buildings;
+        })
+        .catch(() => {
+          this.buildings = [];
         });
     },
     getTypes() {
@@ -170,6 +179,7 @@ export default {
     find() {
       const len = this.place.length;
       const query = {};
+      query.secret_key = this.user.secret_key;
       if (this.searchList.factory) query.factory = this.searchList.factory;
       if (this.searchList.type) query.type = this.searchList.type;
       if (this.searchList.status) query.status = this.searchList.status;
@@ -246,7 +256,6 @@ export default {
             arr.push(obj);
           });
           _this.accountList = [...arr];
-          console.log(_this.accountList);
           _this.$axios
             .post("api/equips/addMany", _this.accountList)
             .then(res => {

@@ -8,78 +8,29 @@
       <el-row type="flex" justify="space-between">
         <el-col :span="7">
           <p class="title">设备使用频率</p>
-          <el-row>
+          <el-row v-for="(item,index) in equip" :key="index">
             <el-col :span="6">
-              <el-tag size="small" effect="dark" type="warning" style="font-size:14px">空调</el-tag>
+              <el-tag
+                size="small"
+                effect="dark"
+                :type="item.type"
+                style="font-size:14px"
+              >{{item.name}}</el-tag>
             </el-col>
             <el-col :span="18">
               <el-progress
                 :text-inside="true"
-                status="warning"
+                :color="item.color"
                 :stroke-width="24"
-                :percentage="useage[0].air"
-              ></el-progress>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-tag size="small" effect="dark" type="danger" style="font-size:14px">电脑</el-tag>
-            </el-col>
-            <el-col :span="18">
-              <el-progress
-                :text-inside="true"
-                status="exception"
-                :stroke-width="24"
-                :percentage="useage[1].computer"
-              ></el-progress>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-tag size="small" effect="dark" type="info" style="font-size:14px">窗帘</el-tag>
-            </el-col>
-            <el-col :span="18">
-              <el-progress
-                :text-inside="true"
-                color="#909399"
-                :stroke-width="24"
-                :percentage="useage[3].curtain"
-              ></el-progress>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-tag size="small" effect="dark" type="success" style="font-size:14px">投影仪</el-tag>
-            </el-col>
-            <el-col :span="18">
-              <el-progress
-                :text-inside="true"
-                status="success"
-                :stroke-width="24"
-                :percentage="useage[2].projector"
-              ></el-progress>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="6">
-              <el-tag size="small" effect="dark" style="font-size:14px">智能灯</el-tag>
-            </el-col>
-            <el-col :span="18">
-              <el-progress
-                :text-inside="true"
-                color="bluesky"
-                :stroke-width="24"
-                :percentage="useage[4].lamp"
+                :percentage="item.usage"
               ></el-progress>
             </el-col>
           </el-row>
         </el-col>
-
         <el-col :span="7">
-          <p class="title">总用电量监控</p>
+          <p class="title">用电量监控</p>
           <div id="myChart1" style="height:230px;"></div>
         </el-col>
-
         <el-col :span="7">
           <p class="title">环境状态</p>
           <el-row>
@@ -87,13 +38,14 @@
               <p class="tip">空气质量</p>
               <el-progress
                 type="dashboard"
-                :percentage="envior_state[0].air_quality"
+                :percentage="environ.air_quality"
                 :format="format"
+                :color="color"
               ></el-progress>
             </el-col>
             <el-col :span="9" :offset="6">
               <p class="tip">湿度</p>
-              <el-progress type="dashboard" :percentage="envior_state[1].humidity" color="#5cb87a"></el-progress>
+              <el-progress type="dashboard" :percentage="environ.humidity" color="#5cb87a"></el-progress>
             </el-col>
           </el-row>
           <el-row>
@@ -101,20 +53,20 @@
               <table class="tabel1">
                 <thead>
                   <tr>
-                    <th>{{table1_data[0].name}}</th>
-                    <th>{{table1_data[1].name}}</th>
-                    <th>{{table1_data[2].name}}</th>
-                    <th>{{table1_data[3].name}}</th>
-                    <th>{{table1_data[4].name}}</th>
+                    <th>PM10</th>
+                    <th>PM2.5</th>
+                    <th>二氧化碳</th>
+                    <th>甲醛</th>
+                    <th>体感温度</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{table1_data[0].value}}</td>
-                    <td>{{table1_data[1].value}}</td>
-                    <td>{{table1_data[2].value}}</td>
-                    <td>{{table1_data[3].value}}</td>
-                    <td>{{table1_data[4].value}}</td>
+                    <td>{{environ.pm10}}</td>
+                    <td>{{environ.pm25}}</td>
+                    <td>{{environ.co2}}</td>
+                    <td>{{environ.meth}}</td>
+                    <td>{{environ.temp}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -165,46 +117,24 @@ export default {
       myChart1: "",
       myChart2: "",
       myChart3: "",
-      useage: [
-        { air: 30 },
-        { computer: 45 },
-        { projector: 65 },
-        { curtain: 75 },
-        { lamp: 85 }
-      ],
-      air_quality: 30,
-      humidity: 58,
-      envior_state: [{ air_quality: 30 }, { humidity: 58 }],
-      building: ["教一", "教二", "教三", "东区实验楼"],
-      power: [334, 390, 330, 720],
-      equip_state: { good: 100, bad: 10 },
-      power_error: [
-        { value: 10, name: "教一", power: 334 },
-        { value: 12, name: "教二", power: 390 },
-        { value: 9, name: "教三", power: 330 },
-        { value: 5, name: "东区实验楼", power: 720 }
-      ],
-      table1_data: [
-        { name: "PM10", value: "62" },
-        { name: "PM2.5", value: "26" },
-        { name: "二氧化碳", value: "15" },
-        { name: "甲醛", value: "16" },
-        { name: "体感温度", value: "22" }
-      ],
-      table2_data: [
-        { date: "2019-10-20", msg: "用电量异常" },
-        { date: "2019-10-20", msg: "用电量异常" },
-        { date: "2019-10-20", msg: "用电量异常" },
-        { date: "2019-10-20", msg: "用电量异常" },
-        { date: "2019-10-20", msg: "用电量异常" },
-        { date: "2019-10-20", msg: "用电量异常" }
-      ]
+      equip: [],
+      environ: {},
+      color: "",
+      table2_data: []
     };
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
   },
   mounted() {
     this.init1();
     this.init2();
     this.init3();
+    this.equip_init();
+    this.electricity_init();
+    this.environ_init();
     window.onresize = () => {
       this.myChart1.resize();
       this.myChart2.resize();
@@ -214,10 +144,13 @@ export default {
   methods: {
     format(percentage) {
       if (percentage <= 30) {
+        this.color = "#5cb87a";
         return "优";
       } else if (percentage > 31 && percentage <= 60) {
+        this.color = "#e6a23c";
         return "良";
       } else {
+        this.color = "#f56c6c";
         return "差";
       }
     },
@@ -248,7 +181,6 @@ export default {
                 color: "#FFFFFF"
               }
             },
-            data: this.building,
             axisTick: {
               alignWithLabel: true
             }
@@ -271,8 +203,7 @@ export default {
           {
             name: "实时用电量",
             type: "bar",
-            barWidth: "60%",
-            data: this.power
+            barWidth: "60%"
           }
         ]
       });
@@ -297,24 +228,13 @@ export default {
             name: "设备状态",
             type: "pie",
             radius: ["0", "60%"],
-            center: ["68%", "40%"],
+            center: ["60%", "45%"],
             color: ["#e72325", "#98e002", "#2ca3fd"],
             label: {
               normal: {
                 formatter: "{b}\n{d}%"
               }
-            },
-            data: [
-              {
-                value: this.equip_state.bad,
-                name: "故障"
-              },
-              {
-                value: this.equip_state.good,
-                name: "正常",
-                selected: true
-              }
-            ]
+            }
           }
         ]
       });
@@ -332,16 +252,14 @@ export default {
           top: 0,
           textStyle: {
             color: "#fff"
-          },
-          data: this.building
+          }
         },
         series: [
           {
             name: "用电量异常警报",
             type: "pie",
             radius: ["0", "60%"],
-            center: ["68%", "40%"],
-            data: this.power_error,
+            center: ["60%", "45%"],
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -353,8 +271,202 @@ export default {
         ]
       });
     },
-    cut(){
-      
+    equip_init() {
+      var d = new Date();
+      var YYYY = d.getFullYear();
+      var MM = d.getMonth() + 1;
+      var DD = d.getDate();
+      var date = YYYY + "-" + MM + "-" + DD;
+      this.$axios
+        .post("/api/analysis/init", { date, secret_key: this.user.secret_key })
+        .then(res => {
+          this.equip = res.data[0].equip;
+          var allTotal = 0,
+            equip_bad = 0,
+            equip_good = 0;
+          this.equip.forEach(item => {
+            allTotal += item.total;
+          });
+          equip_bad = res.data[0].errNum;
+          equip_good = allTotal - equip_bad;
+          var obj = {};
+          obj.date = date;
+          obj.msg = res.data[0].msg;
+          this.table2_data.push(obj);
+
+          this.myChart2.setOption({
+            series: [
+              {
+                data: [
+                  {
+                    value: equip_bad,
+                    name: "故障"
+                  },
+                  {
+                    value: equip_good,
+                    name: "正常",
+                    selected: true
+                  }
+                ]
+              }
+            ]
+          });
+        })
+        .catch(() => {
+          this.myChart2.setOption({
+            series: [
+              {
+                data: [
+                  {
+                    value: 0,
+                    name: "故障"
+                  },
+                  {
+                    value: 0,
+                    name: "正常",
+                    selected: true
+                  }
+                ]
+              }
+            ]
+          });
+          this.equip = [
+            {
+              name: "空调",
+              total: 100,
+              usage: 0,
+              type: "danger",
+              color: "#f56c6c"
+            },
+            {
+              name: "电脑",
+              total: 100,
+              usage: 0,
+              type: "warning",
+              color: "#e6a23c"
+            },
+            {
+              name: "窗帘",
+              total: 100,
+              usage: 0,
+              type: "success",
+              color: "#5cb87a"
+            },
+            {
+              name: "投影仪",
+              total: 100,
+              usage: 0,
+              type: "primary",
+              color: "#1989fa"
+            },
+            {
+              name: "智能灯",
+              total: 100,
+              usage: 0,
+              type: "info",
+              color: "#6f7ad3"
+            }
+          ];
+        });
+    },
+    electricity_init() {
+      // 根据系统时间获取最新的数据
+      var d = new Date();
+      var YYYY = d.getFullYear();
+      var MM = d.getMonth() + 1;
+      var DD = d.getDate();
+      var date = YYYY + "-" + MM + "-" + DD;
+      this.$axios
+        .post("/api/analysis/init1", { date, secret_key: this.user.secret_key })
+        .then(res => {
+          var electricity = [],
+            power = [],
+            err_times = [];
+          var sum1 = 0,
+            sum2 = 0;
+          electricity = res.data[0].electricity;
+          electricity.forEach(item => {
+            item.children.forEach(obj => {
+              sum1 += obj.power;
+              sum2 += obj.value;
+            });
+            power.push(sum1);
+            err_times.push(sum2);
+            sum1 = 0;
+            sum2 = 0;
+          });
+          var building = electricity.reduce((names, item) => {
+            names.push(item.name);
+            return names;
+          }, []);
+          var power_err = err_times.map((value, i) => ({
+            value,
+            name: building[i]
+          }));
+           var obj = {};
+          obj.date = date;
+          obj.msg = res.data[0].msg;
+          this.table2_data.push(obj);
+
+          this.myChart1.setOption({
+            xAxis: [{ data: building }],
+            series: [{ data: power }]
+          });
+          this.myChart3.setOption({
+            legend: { data: building },
+            series: [{ data: power_err }]
+          });
+        })
+        .catch(() => {
+          this.$message.warning("今天没有数据!");
+          this.myChart1.setOption({
+            xAxis: [{ data: ["", "", ""] }],
+            series: [{ data: [0, 0, 0] }]
+          });
+          this.myChart3.setOption({
+            legend: { data: ["", "", ""] },
+            series: [
+              {
+                data: [
+                  { value: 0, name: "" },
+                  { value: 0, name: "" },
+                  { value: 0, name: "" }
+                ]
+              }
+            ]
+          });
+        });
+    },
+    environ_init() {
+      // 根据系统时间获取最新的数据
+      var d = new Date();
+      var YYYY = d.getFullYear();
+      var MM = d.getMonth() + 1;
+      var DD = d.getDate();
+      var date = YYYY + "-" + MM + "-" + DD;
+      this.$axios
+        .post("/api/analysis/init2", {
+          date,
+          secret_key: this.user.secret_key
+        })
+        .then(res => {
+          this.environ = res.data[0].environ;
+           var obj = {};
+          obj.date = date;
+          obj.msg = res.data[0].msg;
+          this.table2_data.push(obj);
+        })
+        .catch(() => {
+          this.environ = {
+            air_quality: 0,
+            humidity: 0,
+            pm10: 0,
+            pm25: 0,
+            co2: 0,
+            meth: 0,
+            temp: 0
+          };
+        });
     }
   }
 };

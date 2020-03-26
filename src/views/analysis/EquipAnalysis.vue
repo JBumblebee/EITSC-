@@ -2,7 +2,7 @@
   <div class="equipAnalysis_container">
     <div class="block">
       <el-date-picker
-        v-model="value2"
+        v-model="value"
         align="right"
         type="date"
         placeholder="选择日期"
@@ -10,93 +10,42 @@
         style="width:160px;margin-right:20px;"
         :picker-options="pickerOptions"
       ></el-date-picker>
-      <el-button icon="el-icon-search" type="primary" size="small" @click="find()">筛选</el-button>
+      <el-button icon="el-icon-search" type="primary" size="small" @click="search(value)">筛选</el-button>
     </div>
     <el-row type="flex" justify="space-between">
       <el-col :span="11">
         <p class="title">设备使用频率</p>
-        <el-row>
+        <el-row v-for="(item,index) in equip" :key="index">
           <el-col :span="6">
-            <el-tag size="small" effect="dark" type="warning" style="font-size:14px">空调</el-tag>
+            <el-tag
+              size="small"
+              effect="dark"
+              :type="item.type"
+              style="font-size:14px"
+            >{{item.name}}</el-tag>
           </el-col>
           <el-col :span="18">
             <el-progress
               :text-inside="true"
-              status="warning"
+              :color="item.color"
               :stroke-width="24"
-              :percentage="useage[0].air"
-            ></el-progress>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-tag size="small" effect="dark" type="danger" style="font-size:14px">电脑</el-tag>
-          </el-col>
-          <el-col :span="18">
-            <el-progress
-              :text-inside="true"
-              status="exception"
-              :stroke-width="24"
-              :percentage="useage[1].computer"
-            ></el-progress>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-tag size="small" effect="dark" type="info" style="font-size:14px">窗帘</el-tag>
-          </el-col>
-          <el-col :span="18">
-            <el-progress
-              :text-inside="true"
-              color="#909399"
-              :stroke-width="24"
-              :percentage="useage[3].curtain"
-            ></el-progress>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-tag size="small" effect="dark" type="success" style="font-size:14px">投影仪</el-tag>
-          </el-col>
-          <el-col :span="18">
-            <el-progress
-              :text-inside="true"
-              status="success"
-              :stroke-width="24"
-              :percentage="useage[2].projector"
-            ></el-progress>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="6">
-            <el-tag size="small" effect="dark" style="font-size:14px">智能灯</el-tag>
-          </el-col>
-          <el-col :span="18">
-            <el-progress
-              :text-inside="true"
-              color="bluesky"
-              :stroke-width="24"
-              :percentage="useage[4].lamp"
+              :percentage="item.usage"
             ></el-progress>
           </el-col>
         </el-row>
       </el-col>
       <el-col :span="11">
         <p class="title">设备状态监控</p>
-        <div id="myChart2" style="height:230px;"></div>
+        <div id="myChart" style="height:230px;"></div>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="15">
-        <el-table
-          :data="tableData"
-          style="width: 100%"
-          max-height="300"
-        >
-          <el-table-column prop="date" label="日期" width="180"></el-table-column>
-          <el-table-column prop="name" label="设备种类" width="180"></el-table-column>
-          <el-table-column prop="total" label="总数量" width="180"></el-table-column>
-          <el-table-column prop="useage" label="使用率"></el-table-column>
+      <el-col :span="11">
+        <el-table :data="equip" style="width: 100%" max-height="300">
+          <el-table-column label="日期" width="160" >{{date}}</el-table-column>
+          <el-table-column prop="name" label="设备种类" width="160" align="center"></el-table-column>
+          <el-table-column prop="total" label="总数量" width="160" align="center"></el-table-column>
+          <el-table-column prop="usage" label="使用率" align="center"></el-table-column>
         </el-table>
       </el-col>
     </el-row>
@@ -106,13 +55,6 @@
 export default {
   data() {
     return {
-      useage: [
-        { air: 30 },
-        { computer: 45 },
-        { projector: 65 },
-        { curtain: 75 },
-        { lamp: 85 }
-      ],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now();
@@ -142,56 +84,60 @@ export default {
           }
         ]
       },
-      value2: "",
-      myChart2: "",
-      equip_state: { good: 100, bad: 10 },
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          total:100,
-          useage: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          total:100,
-          useage: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          total:100,
-          useage: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          total:100,
-          useage: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          total:100,
-          useage: "上海市普陀区金沙江路 1518 弄"
-        }
-      ]
+      equip: [],
+      equip_bad: 0,
+      equip_good: 0,
+      value: "",
+      myChart: "",
+      date: ""
     };
   },
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
   mounted() {
-    this.init2();
+    this.init();
+    this.equipInit();
     window.onresize = () => {
-      this.myChart2.resize();
+      this.myChart.resize();
     };
   },
   methods: {
-    find() {
-      alert(this.value2);
+    search(value) {
+      if (value) {
+        var d = new Date(value);
+        var YYYY = d.getFullYear();
+        var MM = d.getMonth() + 1;
+        var DD = d.getDate();
+        var date = YYYY + "-" + MM + "-" + DD;
+        this.date = date;
+        this.$axios
+          .post("/api/analysis/init", {
+            date,
+            secret_key: this.user.secret_key
+          })
+          .then(res => {
+            this.equip = res.data[0].equip;
+            var allTotal = 0;
+            this.equip.forEach(item => {
+              allTotal += item.total;
+            });
+            this.equip_bad = res.data[0].errNum;
+            this.equip_good = allTotal - res.data[0].errNum;
+            this.init();
+          })
+          .catch(err => {
+            this.$message.error("抱歉，没有该天的数据");
+          });
+      } else {
+        this.equipInit();
+      }
     },
-    init2() {
-      this.myChart2 = this.$echarts.init(document.getElementById("myChart2"));
-      this.myChart2.setOption({
+    init() {
+      this.myChart = this.$echarts.init(document.getElementById("myChart"));
+      this.myChart.setOption({
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -208,7 +154,7 @@ export default {
           {
             name: "设备状态",
             type: "pie",
-            radius: ["20%", "70%"],
+            radius: ["10%", "70%"],
             center: ["50%", "50%"],
             color: ["#e72325", "#98e002", "#2ca3fd"],
             label: {
@@ -218,11 +164,11 @@ export default {
             },
             data: [
               {
-                value: this.equip_state.bad,
+                value: this.equip_bad,
                 name: "故障"
               },
               {
-                value: this.equip_state.good,
+                value: this.equip_good,
                 name: "正常",
                 selected: true
               }
@@ -230,6 +176,68 @@ export default {
           }
         ]
       });
+    },
+    equipInit() {
+      var d = new Date();
+      var YYYY = d.getFullYear();
+      var MM = d.getMonth() + 1;
+      var DD = d.getDate();
+      var date = YYYY + "-" + MM + "-" + DD;
+      this.date = date;
+      this.$axios
+        .post("/api/analysis/init", { date, secret_key: this.user.secret_key })
+        .then(res => {
+          this.equip = res.data[0].equip;
+          var allTotal = 0;
+          this.equip.forEach(item => {
+            allTotal += item.total;
+          });
+          this.equip_bad = res.data[0].errNum;
+          this.equip_good = allTotal - res.data[0].errNum;
+        })
+        .catch(err => {
+          this.$message.warning("没有今天的数据!");
+          this.equip = [
+            {
+              name: "空调",
+              total: 0,
+              usage: 0,
+              type: "danger",
+              color: "#f56c6c"
+            },
+            {
+              name: "电脑",
+              total: 0,
+              usage: 0,
+              type: "warning",
+              color: "#e6a23c"
+            },
+            {
+              name: "窗帘",
+              total: 0,
+              usage: 0,
+              type: "success",
+              color: "#5cb87a"
+            },
+            {
+              name: "投影仪",
+              total: 0,
+              usage: 0,
+              type: "primary",
+              color: "#1989fa"
+            },
+            {
+              name: "智能灯",
+              total: 0,
+              usage: 0,
+              type: "info",
+              color: "#6f7ad3"
+            }
+          ];
+          this.equip_bad = 0;
+          this.equip_good = 0;
+          this.init();
+        });
     }
   }
 };
@@ -243,7 +251,7 @@ export default {
   box-sizing: border-box;
 }
 .block {
-  margin:20px 0;
+  margin: 20px 0;
 }
 .title {
   font-size: 18px;

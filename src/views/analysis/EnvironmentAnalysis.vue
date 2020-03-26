@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import FilterSearch from "../../components/FilterSearch";
 export default {
   name: "environmentAnalysis",
   data() {

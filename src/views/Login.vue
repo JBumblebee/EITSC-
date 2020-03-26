@@ -27,20 +27,6 @@
     </header>
     <!-- 首页 -->
     <section id="home" class="home_section">
-      <!-- 走马灯 -->
-      <!-- <div class="lunbo">
-        <el-carousel :interval="5000" type="card" height="400px">
-          <el-carousel-item>
-            <img src="../assets/bg.jpg" alt />
-          </el-carousel-item>
-          <el-carousel-item>
-            <img src="../assets/showcase.jpg" alt />
-          </el-carousel-item>
-          <el-carousel-item>
-            <img src="../assets/bg.jpg" alt />
-          </el-carousel-item>
-        </el-carousel>
-      </div>-->
       <div class="animated bounceInDown slower">
         <div class="text-center">
           <h1 class="sec_title white">WELCOME TO CONTROL SYSTEM</h1>
@@ -322,7 +308,6 @@
 <script>
 import jwt_decode from "jwt-decode";
 export default {
-  name: "login",
   data() {
     var validatePass2 = (rule, value, callback) => {
       if (value !== this.registerUser.password) {
@@ -491,20 +476,6 @@ export default {
   background: url('../assets/img/bg/1.jpg')
     no-repeat center center/cover;
 }
-/* .lunbo {
-  padding: 60px 0 ;
-}
-.el-carousel {
-  overflow: hidden;
-}
-.el-carousel__item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.el-carousel__item img {
-  width: 100%;
-} */
 /*----------------------------------------------------
 / section 基本设置
 ------------------------------------------------------*/

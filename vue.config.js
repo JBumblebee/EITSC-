@@ -20,7 +20,7 @@ module.exports = {
         //             '@': path.resolve(__dirname, './src'),
         //             '@c': path.resolve(__dirname, './src/components'),
         //             'vue$': 'vue/dist/vue.esm.js',
-        //             'vendor': path.resolve(__dirname, './src/vendor'),//新增加一行
+        //             // 'vendor': path.resolve(__dirname, './src/vendor'),//新增加一行
         //         }
         //     }
         // })

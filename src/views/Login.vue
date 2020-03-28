@@ -37,7 +37,6 @@
           <a class="common_btn margin_left" @click="open">
             <span>使用须知</span>
           </a>
-          
         </div>
       </div>
     </section>
@@ -473,8 +472,7 @@ export default {
   width: 100%;
   height: 100vh;
   color: #f4f4f4;
-  background: url('../assets/img/bg/1.jpg')
-    no-repeat center center/cover;
+  background: url("../assets/img/bg/1.jpg") no-repeat center center/cover;
 }
 /*----------------------------------------------------
 / section 基本设置

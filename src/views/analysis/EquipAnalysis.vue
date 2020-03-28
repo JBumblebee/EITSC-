@@ -194,6 +194,7 @@ export default {
           });
           this.equip_bad = res.data[0].errNum;
           this.equip_good = allTotal - res.data[0].errNum;
+          this.init()
         })
         .catch(err => {
           this.$message.warning("没有今天的数据!");
